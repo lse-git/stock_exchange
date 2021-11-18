@@ -19,8 +19,15 @@ class chart():
     def read_file_and_plot(self, path):
         with open(path) as self.csvFile:
             self.csvReader = csv.reader(self.csvFile, delimiter=",")
+            self.rowID = 0
+            self.supply = []
+            self.demand = []
             for self.row in self.csvReader:
-                print(self.row)
+                if self.rowID not in [0, 1]:
+                    self.supply.append(self.row[:2])
+                    self.demand.append(self.row[-2:])
+                self.rowID += 1
+            print(self.supply, self.demand)
 
     def pack(self, expand, fill):
         self.chartCanvas.pack(expand=expand, fill=fill)
